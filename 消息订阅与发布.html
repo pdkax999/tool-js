@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script src="./js/PubSub.js"></script>
+  <!-- <script src="https://cdn.bootcdn.net/ajax/libs/Pubsub-js/1.9.3/Pubsub.js"></script> -->
+  <script>
+    /*  
+   Pubsub 消息订阅与发布
+
+   Pubsub.subscribe(msg,callback(msg,data));
+
+    订阅消息 接收一个消息名 ，和一个回调函数， 并返回一个token    可以通过token 取消 发布的消息
+
+   Pubsub.publish(msg, data);  异步执行
+    
+   Pubsub.unsubscribe(token);                                
+    没有传递参数，不取消消息的订阅
+    传递消息名取消所有  一级
+    更具绑定消息名时的返回值 取消消息名 二级
+    更具回调函数名，取消已绑定的回调
+   Pubsub.publishSync('MY TOPIC', 'hello world!'); 同步执行 
+   
+   */
+   function a(msg, data) {
+      console.log(msg, data);
+    }
+
+    let token = Pubsub.subscribe('click',a)
+
+    let token1 = Pubsub.subscribe('click', (msg, data) => {
+      console.log(msg, data);
+    })
+
+    
+    Pubsub.unsubscribe(token)
+
+    // Pubsub.publishSync('click', '我发送了消息')
+    Pubsub.publish('click', '我发送异步步消息')
+    console.log('同步代码');
+    
+    // console.log(token, token1);
+    // console.log(Pubsub);
+  </script>
+</body>
+
+</html>
